@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>John Mark Shorack – Datenjournalist</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#16120e;
+  --paper:#faf7f2;
+  --card:#ffffff;
+  --muted:#7a7068;
+  --border:#e8e2d9;
+  --pop1:#e8420a;   /* burnt orange */
+  --pop2:#0057ff;   /* electric blue */
+  --pop3:#00b37d;   /* emerald */
+  --pop4:#c026d3;   /* magenta */
+  --pop5:#f5a623;   /* gold */
+  --sidebar-w:300px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6}
+
+/* ─── LAYOUT ─── */
+.layout{display:flex;min-height:100vh}
+
+/* ─── SIDEBAR ─── */
+aside{
+  width:var(--sidebar-w);flex-shrink:0;
+  position:fixed;top:0;left:0;height:100vh;overflow-y:auto;
+  background:#0f0d0b;
+  padding:44px 30px 40px;
+  display:flex;flex-direction:column;gap:32px;
+}
+.s-blob{
+  width:80px;height:80px;border-radius:60% 40% 55% 45%/45% 55% 45% 55%;
+  background:linear-gradient(135deg,var(--pop1),var(--pop4));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Serif Display',serif;font-size:26px;color:#fff;
+  flex-shrink:0;margin-bottom:4px;
+}
+.s-name{font-family:'DM Serif Display',serif;font-size:21px;color:#faf7f2;line-height:1.2;margin-bottom:3px}
+.s-role{font-size:11px;color:#9e958d;letter-spacing:.08em;text-transform:uppercase}
+
+.s-label{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#4a4440;margin-bottom:8px}
+
+nav{display:flex;flex-direction:column;gap:2px}
+nav a{
+  font-size:13px;font-weight:500;color:#9e958d;text-decoration:none;
+  padding:8px 12px;border-radius:2px 10px 2px 10px;
+  display:flex;align-items:center;gap:10px;
+  border-left:2px solid transparent;
+  transition:all .15s;
+}
+nav a:hover{color:#faf7f2;background:#1e1a17;border-left-color:var(--pop1)}
+nav a.active{color:#faf7f2;background:#1e1a17;border-left-color:var(--pop1)}
+
+.s-socials{display:flex;flex-direction:column;gap:5px;margin-top:auto}
+.s-soc-link{
+  font-size:12px;color:#9e958d;text-decoration:none;
+  padding:7px 10px;border-radius:2px 10px 2px 10px;
+  border:1px solid #2a2420;
+  display:flex;align-items:center;gap:8px;
+  transition:all .15s;
+}
+.s-soc-link:hover{color:#faf7f2;border-color:#4a4440}
+.s-soc-link svg{width:13px;height:13px;fill:currentColor;flex-shrink:0}
+
+/* ─── MAIN ─── */
+main{margin-left:var(--sidebar-w);flex:1;padding:60px 52px 100px;max-width:900px}
+
+/* ─── SECTION HEADS ─── */
+.sec{margin-bottom:80px}
+.sec-head{display:flex;align-items:flex-end;gap:14px;margin-bottom:30px}
+.sec-num{font-family:'DM Serif Display',serif;font-size:54px;color:var(--border);line-height:1;flex-shrink:0;margin-bottom:-4px}
+.sec-title{font-family:'DM Serif Display',serif;font-size:32px;font-weight:400;line-height:1.1}
+.sec-accent{display:block;height:3px;width:100%;border-radius:99px;margin-top:6px}
+
+/* ─── ABOUT ─── */
+.about-grid{display:grid;grid-template-columns:1fr 220px;gap:32px;align-items:start}
+.about-text p{font-size:15px;color:#44403c;line-height:1.8;margin-bottom:14px}
+.about-text p:last-child{margin-bottom:0}
+.about-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.a-tag{
+  font-size:11px;font-weight:600;padding:4px 12px;border-radius:3px 12px 3px 12px;
+  letter-spacing:.03em;
+}
+.t-orange{background:#fff1ec;color:var(--pop1);border:1px solid #ffc9b8}
+.t-blue{background:#eff3ff;color:var(--pop2);border:1px solid #b8c9ff}
+.t-green{background:#edfaf5;color:var(--pop3);border:1px solid #9de8ce}
+.about-aside{
+  background:#0f0d0b;border-radius:4px 20px 4px 20px;
+  padding:24px 20px;display:flex;flex-direction:column;gap:14px;
+}
+.aside-stat{text-align:center}
+.aside-stat .num{font-family:'DM Serif Display',serif;font-size:34px;color:#faf7f2}
+.aside-stat .lbl{font-size:10px;color:#9e958d;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.aside-divider{height:1px;background:#2a2420}
+
+/* ─── PROJECTS ─── */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.proj-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:4px 20px 4px 20px;
+  overflow:hidden;text-decoration:none;color:var(--ink);
+  transition:transform .2s, box-shadow .2s;
+  display:flex;flex-direction:column;
+}
+.proj-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
+.proj-top{height:6px;flex-shrink:0}
+.proj-body{padding:22px 20px 20px;flex:1;display:flex;flex-direction:column}
+.proj-kicker{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.proj-title{font-family:'DM Serif Display',serif;font-size:20px;line-height:1.25;margin-bottom:10px}
+.proj-blurb{font-size:13px;color:var(--muted);line-height:1.6;flex:1;margin-bottom:14px}
+.proj-footer{display:flex;align-items:center;justify-content:space-between}
+.proj-status{font-size:10px;font-weight:700;padding:2px 10px;border-radius:99px}
+.s-live{background:#dcfce7;color:#15803d}
+.s-wip{background:#fef9c3;color:#a16207}
+.proj-arrow{font-size:18px;color:var(--muted)}
+
+/* ─── BLOG ─── */
+.blog-list{display:flex;flex-direction:column;gap:16px}
+.blog-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:4px 20px 4px 20px;
+  padding:24px 26px;
+  display:flex;gap:24px;align-items:flex-start;
+  text-decoration:none;color:var(--ink);
+  transition:transform .2s, box-shadow .2s;
+  position:relative;overflow:hidden;
+}
+.blog-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
+}
+.blog-card:hover{transform:translateX(4px);box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.blog-date-block{flex-shrink:0;text-align:center;width:54px}
+.blog-date-block .day{font-family:'DM Serif Display',serif;font-size:28px;line-height:1;color:var(--ink)}
+.blog-date-block .mon{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.blog-divider{width:1px;background:var(--border);flex-shrink:0;align-self:stretch}
+.blog-content{flex:1}
+.blog-tag{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.blog-title{font-family:'DM Serif Display',serif;font-size:19px;line-height:1.3;margin-bottom:6px}
+.blog-blurb{font-size:13px;color:var(--muted);line-height:1.6}
+.blog-read{font-size:12px;font-weight:600;margin-top:10px;display:inline-flex;align-items:center;gap:4px}
+
+/* ─── PUBLICATIONS ─── */
+.pub-list{display:flex;flex-direction:column}
+.pub-item{
+  display:grid;grid-template-columns:130px 1fr 80px;
+  gap:16px;align-items:baseline;
+  padding:16px 0;border-bottom:1px solid var(--border);
+}
+.pub-item:last-child{border-bottom:none}
+.pub-outlet{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.pub-title a{font-size:14px;color:var(--ink);text-decoration:none;font-weight:500;line-height:1.4}
+.pub-title a:hover{color:var(--pop2)}
+.pub-date{font-size:11px;color:var(--muted);text-align:right}
+
+/* ─── FOOTER SOCIALS ─── */
+.footer-soc{
+  display:flex;flex-wrap:wrap;gap:10px;
+  padding-top:32px;border-top:2px solid var(--border);
+}
+.fs-link{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 18px;border-radius:4px 14px 4px 14px;
+  background:var(--card);border:1px solid var(--border);
+  text-decoration:none;color:var(--ink);font-size:13px;font-weight:500;
+  transition:all .15s;
+}
+.fs-link:hover{border-color:var(--pop1);color:var(--pop1)}
+.fs-link svg{width:16px;height:16px;fill:currentColor}
+
+/* ─── MOBILE ─── */
+.mob-head{display:none;position:fixed;top:0;left:0;right:0;z-index:200;background:#0f0d0b;border-bottom:1px solid #2a2420;padding:0 20px;height:52px;align-items:center;justify-content:space-between}
+.mob-name{font-family:'DM Serif Display',serif;font-size:16px;color:#faf7f2}
+.hamburger{background:none;border:none;cursor:pointer;font-size:22px;color:#9e958d}
+.overlay{display:none;position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.5)}
+.overlay.open{display:block}
+@media(max-width:900px){
+  .proj-grid{grid-template-columns:1fr}
+  .about-grid{grid-template-columns:1fr}
+  .about-aside{display:none}
+}
+@media(max-width:768px){
+  aside{transform:translateX(-100%);transition:transform .25s;z-index:160}
+  aside.open{transform:translateX(0)}
+  main{margin-left:0;padding:70px 20px 60px}
+  .mob-head{display:flex}
+  .pub-item{grid-template-columns:90px 1fr;grid-template-rows:auto auto}
+  .pub-date{grid-column:2;margin-top:-8px}
+}
+</style>
+</head>
+<body>
+
+<div class="mob-head">
+  <span class="mob-name">John Mark Shorack</span>
+  <button class="hamburger" onclick="toggleNav()">&#9776;</button>
+</div>
+<div class="overlay" id="overlay" onclick="toggleNav()"></div>
+
+<div class="layout">
+<aside id="sidebar">
+  <div>
+    <div class="s-blob">JMS</div>
+    <div class="s-name">John Mark Shorack</div>
+    <div class="s-role">Datenjournalist · Berlin</div>
+  </div>
+
+  <div>
+    <div class="s-label">Navigation</div>
+    <nav id="sidenav">
+      <a href="#about"        class="active">&#x2014;&nbsp; Über mich</a>
+      <a href="#publikationen">&#x2014;&nbsp; Publikationen</a>
+      <a href="#projekte">    &#x2014;&nbsp; Projekte</a>
+      <a href="#blog">        &#x2014;&nbsp; Blog</a>
+    </nav>
+  </div>
+
+  <div class="s-socials">
+    <div class="s-label">Kontakt & Socials</div>
+    <a class="s-soc-link" href="https://www.linkedin.com/in/john-mark-s/" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <a class="s-soc-link" href="https://github.com/john-mark-s" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      GitHub
+    </a>
+    <a class="s-soc-link" href="https://muckrack.com/john-mark-shorack" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2V8h2v8zm-2-10V4h2v2h-2z"/></svg>
+      MuckRack
+    </a>
+  </div>
+</aside>
+
+<main>
+
+  <!-- ÜBER MICH -->
+  <section class="sec" id="about">
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <div>
+        <div class="sec-title">Über mich</div>
+        <span class="sec-accent" style="background:linear-gradient(90deg,var(--pop1),var(--pop4))"></span>
+      </div>
+    </div>
+    <div class="about-grid" style="grid-template-columns:1fr">
+      <div>
+        <div class="about-text">
+          <p>John Mark Shorack ist freier Datenjournalist in Berlin. 2017 schloss ich mein Bachelor-Studium der Sozialwissenschaften in den USA ab und zog nach Deutschland. Hier arbeitete ich zunächst als Reiseleiter und später als Datenanalyst. Aktuell beschäftige ich mich mit Themen an der Schnittstelle zwischen Daten, interaktiven Karten und Lokaljournalismus.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+<!-- PUBLIKATIONEN -->
+  <section class="sec" id="publikationen">
+    <div class="sec-head">
+      <div class="sec-num">04</div>
+      <div>
+        <div class="sec-title">Publikationen</div>
+        <span class="sec-accent" style="background:linear-gradient(90deg,var(--pop3),var(--pop5))"></span>
+      </div>
+    </div>
+    <div class="pub-list">
+
+      <div class="pub-item">
+        <div class="pub-outlet" style="color:var(--pop1)">Lateinamerika Nachrichten</div>
+        <div class="pub-title"><a href="https://lateinamerika-nachrichten.de/artikel/ein-system-von-maennern-fuer-maenner/" target="_blank">Ein System von Männern für Männern</a></div>
+        <div class="pub-date">Jan 2026</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-outlet" style="color:var(--pop2)">StadtrandNachrichten</div>
+        <div class="pub-title"><a href="https://stadtrand-nachrichten.de/finde-bebauungsplaene-in-deiner-naehe/" target="_blank">Finde Bebauungspläne in deiner Nähe: Eine interaktive Karte</a></div>
+        <div class="pub-date">Jan 2026</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-outlet" style="color:var(--pop3)">Lateinamerika Nachrichten</div>
+        <div class="pub-title"><a href="https://lateinamerika-nachrichten.de/artikel/brot-und-spiele/" target="_blank">Brot und Spiele</a></div>
+        <div class="pub-date">Aug 2023</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-outlet" style="color:var(--pop5)">taz</div>
+        <div class="pub-title"><a href="https://taz.de/Corona-in-Venezuela/!5672057/" target="_blank">Hände waschen ohne Wasser?</a></div>
+        <div class="pub-date">Nov 2023</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJEKTE -->
+  <section class="sec" id="projekte">
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <div>
+        <div class="sec-title">Projekte</div>
+        <span class="sec-accent" style="background:linear-gradient(90deg,var(--pop2),var(--pop3))"></span>
+      </div>
+    </div>
+    <div class="proj-grid">
+
+      <a class="proj-card" href="https://three-liga-dashboard.onrender.com">
+        <div class="proj-top" style="background:linear-gradient(90deg,var(--pop1),var(--pop5))"></div>
+        <div class="proj-body">
+          <div class="proj-title">3. Liga Table of Justice</div>
+          <div class="proj-blurb">Expected Goals (xG) and Expected Points (xP) analytics dashboard for German 3. Liga 2025/2026 Season.</div>
+          <div class="proj-footer">
+            <span class="proj-status s-live">Live</span>
+            <span class="proj-arrow">→</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="proj-card" href="#">
+        <div class="proj-top" style="background:linear-gradient(90deg,var(--pop2),var(--pop4))"></div>
+        <div class="proj-body">
+          <div class="proj-title">Berliner Bezirk Pressemitteilungen</div>
+          <div class="proj-blurb">Alle Pressemitteilungen der 12 Berliner Bezirke in einer durchsuchbaren Tabelle.</div>
+          <div class="proj-footer">
+            <span class="proj-status s-wip">In Arbeit</span>
+            <span class="proj-arrow">→</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section class="sec" id="blog">
+    <div class="sec-head">
+      <div>
+        <div class="sec-title">Blog</div>
+        <span class="sec-accent" style="background:linear-gradient(90deg,var(--pop4),var(--pop5))"></span>
+      </div>
+    </div>
+    <div class="blog-list">
+
+      <a class="blog-card" href="blog/empire-of-ai-eine-buchrezension.html"
+         style="--bc:var(--pop1)">
+        <style>.blog-card:nth-child(1)::before{background:var(--pop1)}</style>
+        <div class="blog-date-block">
+          <div class="day">3</div>
+          <div class="mon">Mar 26</div>
+        </div>
+        <div class="blog-divider"></div>
+        <div class="blog-content">
+          <div class="blog-title">Empire of AI: Eine Buchrezension</div>
+          <div class="blog-blurb">Über das Neujahr habe ich Karen Hao’s „Empire of AI“ gelesen. Das Buch ist sehr zu empfehlen, um einen breiteren Blick auf KI zu verstehen, und um hinter die Kulissen von OpenAI und anderen Unternehmen zu sehen. Hoffentlich hilft es uns auch, weiterhin kritische Fragen gegenüber den KI-Unternehmen zu stellen.</div>
+        </div>
+      </a>
+
+      <a class="blog-card" href="blog/breitbandausbau-an-den-Schulen-in-steglitz-zehlendorf.html">
+        <style>.blog-card:nth-child(2)::before{background:var(--pop2)}</style>
+        <div class="blog-date-block">
+          <div class="day">09</div>
+          <div class="mon">Dec 25</div>
+        </div>
+        <div class="blog-divider"></div>
+        <div class="blog-content">
+          <div class="blog-title">Breitbandausbau an den Schulen in Steglitz-Zehlendorf</div>
+          <div class="blog-blurb">Ende November veröffentlichte die Senatsverwaltung für Bildung, Jugend und Familie ein Update zum Breitbandausbau der Berliner Schulen. Ich habe mir die Übersicht für die Schulen in Steglitz-Zehlendorf angeschaut.</div>
+        </div>
+      </a>
+
+      <a class="blog-card" href="blog/drei-gedanken-zum-datenjournalismus.html">
+        <style>.blog-card:nth-child(3)::before{background:var(--pop3)}</style>
+        <div class="blog-date-block">
+          <div class="day">19</div>
+          <div class="mon">May 25</div>
+        </div>
+        <div class="blog-divider"></div>
+        <div class="blog-content">
+          <div class="blog-title">Drei Gedanken zum Datenjournalismus</div>
+          <div class="blog-blurb">„Journalismus, wie wir ihn kennen, wird die KI-Revolution nicht überleben.“ Mit diesem Satz beginnt Christoph Kucklick seinen Beitrag im „Handbuch Daten und KI im Journalismus“, das 2024 von Christina Elmer und Lorenz Matzat herausgegeben wurde. Kucklick sagt, dass KI nicht nur einzelne Arbeitsschritte, sondern auch die grundlegende Frage, was es heißt, ein Medium zu sein, verändern wird. Tatsächlich zieht sich die Frage, wie sich der Journalismus verändert und wie Journalist:innen ihn verändern, durch das gesamte Buch. Ich habe drei Gedanken zum Buch sowie Eindrücke von einer DAGStat-Veranstaltung gesammelt, die ich hier gerne teilen möchte.</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+    <!-- FOOTER SOCIALS -->
+    <div class="footer-soc" style="margin-top:60px">
+      <a class="fs-link" href="https://www.linkedin.com/in/john-mark-s/" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="fs-link" href="https://github.com/john-mark-s" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        GitHub
+      </a>
+      <a class="fs-link" href="https://muckrack.com/john-mark-shorack" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+        MuckRack
+      </a>
+    </div>
+
+</main>
+</div>
+
+<script>
+function toggleNav(){
+  document.getElementById("sidebar").classList.toggle("open");
+  document.getElementById("overlay").classList.toggle("open");
+}
+document.querySelectorAll("#sidenav a").forEach(a=>{
+  a.addEventListener("click",()=>{
+    document.getElementById("sidebar").classList.remove("open");
+    document.getElementById("overlay").classList.remove("open");
+  });
+});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll("#sidenav a").forEach(a=>a.classList.remove("active"));
+      const l=document.querySelector(`#sidenav a[href="#${e.target.id}"]`);
+      if(l)l.classList.add("active");
+    }
+  });
+},{rootMargin:"-20% 0px -65% 0px"});
+document.querySelectorAll("section[id]").forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
