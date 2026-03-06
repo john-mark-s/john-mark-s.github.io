@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Berliner Bezirk Pressemitteilungen – Steglitz-Zehlendorf</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#16120e;--paper:#faf7f2;--card:#fff;--muted:#7a7068;--border:#e8e2d9;
+  --pop1:#e8420a;--pop2:#0057ff;--pop3:#00b37d;--pop4:#c026d3;--pop5:#f5a623;
+}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6}
+
+/* TOPBAR */
+.topbar{
+  position:sticky;top:0;z-index:100;background:#0f0d0b;
+  border-bottom:1px solid #2a2420;padding:0 32px;height:54px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.topbar-brand{font-family:'DM Serif Display',serif;font-size:17px;color:#faf7f2;text-decoration:none}
+.topbar-back{font-size:12px;color:#9e958d;text-decoration:none;transition:color .15s}
+.topbar-back:hover{color:#faf7f2}
+
+/* HERO */
+.hero{background:#0f0d0b;padding:48px 40px 40px;position:relative;overflow:hidden}
+.hero::after{
+  content:'PM';position:absolute;right:-8px;top:-10px;
+  font-family:'DM Serif Display',serif;font-size:200px;color:#1a1612;
+  pointer-events:none;line-height:1;z-index:0;
+}
+.hero-inner{position:relative;z-index:1;max-width:860px}
+.hero-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pop2);margin-bottom:10px}
+.hero-title{font-family:'DM Serif Display',serif;font-size:42px;color:#faf7f2;line-height:1.1;margin-bottom:12px}
+.hero-sub{font-size:14px;color:#9e958d;max-width:500px;margin-bottom:20px}
+.hero-meta{display:flex;gap:16px;flex-wrap:wrap}
+.hero-stat{font-size:12px;color:#9e958d}
+.hero-stat strong{color:#faf7f2;font-weight:600}
+
+/* CONTROLS */
+.controls{
+  background:var(--card);border-bottom:1px solid var(--border);
+  padding:16px 40px;display:flex;gap:12px;align-items:center;
+  flex-wrap:wrap;position:sticky;top:54px;z-index:90;
+}
+.search-wrap{position:relative;flex:1;min-width:200px;max-width:380px}
+.search-wrap svg{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  width:15px;height:15px;fill:var(--muted);pointer-events:none;
+}
+#searchInput{
+  width:100%;padding:8px 12px 8px 36px;
+  border:1px solid var(--border);border-radius:4px 12px 4px 12px;
+  font-family:inherit;font-size:13px;background:var(--paper);color:var(--ink);
+  outline:none;transition:border-color .15s;
+}
+#searchInput:focus{border-color:var(--pop2)}
+
+.toggle-wrap{display:flex;gap:4px;background:#f1ede7;border-radius:4px 12px 4px 12px;padding:3px}
+.toggle-btn{
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:3px 10px 3px 10px;
+  border:none;background:transparent;cursor:pointer;color:var(--muted);transition:all .15s;
+}
+.toggle-btn.active{background:var(--ink);color:#faf7f2}
+
+.sort-select{
+  font-family:inherit;font-size:12px;padding:7px 12px;
+  border:1px solid var(--border);border-radius:4px 12px 4px 12px;
+  background:var(--paper);color:var(--ink);cursor:pointer;outline:none;
+}
+
+.count-label{font-size:12px;color:var(--muted);margin-left:auto}
+
+/* TABLE WRAPPER */
+.table-wrap{max-width:960px;margin:0 auto;padding:28px 40px 80px;overflow-x:auto}
+
+table{width:100%;border-collapse:collapse}
+thead th{
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);padding:10px 14px;text-align:left;
+  border-bottom:2px solid var(--border);white-space:nowrap;cursor:pointer;
+  user-select:none;transition:color .15s;
+}
+thead th:hover{color:var(--ink)}
+thead th .sort-icon{margin-left:4px;opacity:.4;font-size:10px}
+thead th.sorted .sort-icon{opacity:1;color:var(--pop2)}
+
+tbody tr{border-bottom:1px solid var(--border);transition:background .12s}
+tbody tr:hover{background:#f5f1eb}
+tbody tr.archived{opacity:.7}
+
+td{padding:12px 14px;font-size:13px;vertical-align:middle}
+td.td-date{white-space:nowrap;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;min-width:110px}
+td.td-title a{color:var(--ink);text-decoration:none;font-weight:500;line-height:1.4;display:block}
+td.td-title a:hover{color:var(--pop2)}
+td.td-einheit{white-space:nowrap}
+.einheit-pill{
+  font-size:10px;font-weight:700;padding:2px 10px;border-radius:99px;
+  background:#eff3ff;color:var(--pop2);border:1px solid #b8c9ff;
+  white-space:nowrap;
+}
+.new-badge{
+  display:inline-block;font-size:9px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;background:var(--pop1);color:#fff;
+  padding:1px 6px;border-radius:99px;margin-left:6px;vertical-align:middle;
+}
+
+/* EMPTY / LOADING */
+.state-row td{text-align:center;padding:48px;color:var(--muted);font-size:14px}
+
+/* PAGINATION */
+.pagination{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:28px;flex-wrap:wrap}
+.pg-btn{
+  font-size:12px;font-weight:600;padding:6px 14px;
+  border:1px solid var(--border);border-radius:4px 10px 4px 10px;
+  background:var(--card);cursor:pointer;color:var(--ink);transition:all .15s;
+}
+.pg-btn:hover,.pg-btn.active{background:var(--ink);color:#faf7f2;border-color:var(--ink)}
+.pg-btn:disabled{opacity:.3;cursor:default}
+.pg-info{font-size:12px;color:var(--muted)}
+
+/* FOOTER */
+.proj-footer{max-width:960px;margin:0 auto;padding:0 40px 40px;
+  font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:16px}
+.proj-footer a{color:var(--pop2)}
+
+@media(max-width:640px){
+  .hero{padding:32px 16px 28px}
+  .hero-title{font-size:28px}
+  .controls{padding:12px 16px}
+  .table-wrap{padding:16px 12px 60px}
+  .count-label{display:none}
+  td.td-einheit{display:none}
+  thead th:last-child{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="topbar-brand" href="../index.html">John Mark Shorack</a>
+  <a class="topbar-back" href="../index.html">← Zurück</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Projekt · Steglitz-Zehlendorf</div>
+    <div class="hero-title">Bezirk Pressemitteilungen</div>
+    <div class="hero-sub">Alle Pressemitteilungen des Bezirksamts Steglitz-Zehlendorf – täglich aktualisiert, durchsuchbar und sortierbar.</div>
+    <div class="hero-meta">
+      <span class="hero-stat">Quelle: <strong>berlin.de</strong></span>
+      <span class="hero-stat">Aktualisiert: <strong id="lastUpdated">—</strong></span>
+      <span class="hero-stat">Gesamt: <strong id="totalCount">—</strong></span>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    <input type="text" id="searchInput" placeholder="Suchen…" oninput="onSearch()"/>
+  </div>
+
+  <div class="toggle-wrap">
+    <button class="toggle-btn active" onclick="setView('recent',this)">Letzte 30 Tage</button>
+    <button class="toggle-btn" onclick="setView('all',this)">Alle</button>
+  </div>
+
+  <select class="sort-select" id="sortSelect" onchange="render()">
+    <option value="date-desc">Datum ↓ (neu → alt)</option>
+    <option value="date-asc">Datum ↑ (alt → neu)</option>
+    <option value="title-asc">Titel A–Z</option>
+    <option value="title-desc">Titel Z–A</option>
+  </select>
+
+  <span class="count-label" id="countLabel"></span>
+</div>
+
+<div class="table-wrap">
+  <table id="pmTable">
+    <thead>
+      <tr>
+        <th onclick="cycleSort('date')" id="th-date">Datum <span class="sort-icon">↕</span></th>
+        <th>Titel</th>
+        <th onclick="cycleSort('einheit')" id="th-einheit">Einheit <span class="sort-icon">↕</span></th>
+      </tr>
+    </thead>
+    <tbody id="pmBody">
+      <tr class="state-row"><td colspan="3">Lade Daten…</td></tr>
+    </tbody>
+  </table>
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<div class="proj-footer">
+  Daten von <a href="https://www.berlin.de/ba-steglitz-zehlendorf/aktuelles/pressemitteilungen/" target="_blank">berlin.de</a> · 
+  Täglich aktualisiert via GitHub Actions · 
+  <a href="https://github.com/john-mark-s/john-mark-s.github.io" target="_blank">Quellcode</a>
+</div>
+
+<script>
+const DATA_URL = '../pressemitteilungen/data.json';
+const PAGE_SIZE = 25;
+
+let allData = [];
+let filtered = [];
+let currentView = 'recent';
+let currentPage = 1;
+let sortKey = 'date';
+let sortDir = 'desc';
+
+async function init() {
+  try {
+    const r = await fetch(DATA_URL);
+    if (!r.ok) throw new Error('not found');
+    allData = await r.json();
+    document.getElementById('totalCount').textContent = allData.length;
+    const dates = allData.map(d => d.date).filter(Boolean).sort().reverse();
+    if (dates.length) document.getElementById('lastUpdated').textContent = formatDate(dates[0]);
+    applyFilters();
+  } catch(e) {
+    document.getElementById('pmBody').innerHTML =
+      '<tr class="state-row"><td colspan="3">⚠ data.json nicht gefunden. Bitte erst den GitHub Action ausführen.</td></tr>';
+  }
+}
+
+function applyFilters() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - 30);
+
+  filtered = allData.filter(row => {
+    if (currentView === 'recent') {
+      const d = parseDate(row.date);
+      if (d && d < cutoff) return false;
+    }
+    if (q) {
+      return row.title.toLowerCase().includes(q) ||
+             (row.einheit||'').toLowerCase().includes(q);
+    }
+    return true;
+  });
+  sortFiltered();
+  currentPage = 1;
+  render();
+}
+
+function sortFiltered() {
+  filtered.sort((a, b) => {
+    let va, vb;
+    if (sortKey === 'date') {
+      va = parseDate(a.date) || new Date(0);
+      vb = parseDate(b.date) || new Date(0);
+      return sortDir === 'desc' ? vb - va : va - vb;
+    } else {
+      va = (a[sortKey]||'').toLowerCase();
+      vb = (b[sortKey]||'').toLowerCase();
+      return sortDir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+    }
+  });
+}
+
+function render() {
+  const tbody = document.getElementById('pmBody');
+  const total = filtered.length;
+  document.getElementById('countLabel').textContent = total + ' Einträge';
+
+  if (!total) {
+    tbody.innerHTML = '<tr class="state-row"><td colspan="3">Keine Ergebnisse gefunden.</td></tr>';
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+  currentPage = Math.min(currentPage, totalPages);
+  const slice = filtered.slice((currentPage-1)*PAGE_SIZE, currentPage*PAGE_SIZE);
+
+  const now = new Date();
+  const threeDaysAgo = new Date(now - 3*24*60*60*1000);
+
+  tbody.innerHTML = slice.map(row => {
+    const d = parseDate(row.date);
+    const isNew = d && d >= threeDaysAgo;
+    return `<tr>
+      <td class="td-date">${formatDate(row.date)}</td>
+      <td class="td-title">
+        <a href="${row.url}" target="_blank" rel="noopener">${escHtml(row.title)}</a>
+        ${isNew ? '<span class="new-badge">Neu</span>' : ''}
+      </td>
+      <td class="td-einheit"><span class="einheit-pill">${escHtml(row.einheit||'—')}</span></td>
+    </tr>`;
+  }).join('');
+
+  // pagination
+  const pg = document.getElementById('pagination');
+  if (totalPages <= 1) { pg.innerHTML = ''; return; }
+  let html = `<button class="pg-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹</button>`;
+  for (let i=1; i<=totalPages; i++) {
+    if (i===1 || i===totalPages || Math.abs(i-currentPage)<=1)
+      html += `<button class="pg-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+    else if (Math.abs(i-currentPage)===2)
+      html += `<span class="pg-info">…</span>`;
+  }
+  html += `<button class="pg-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>›</button>`;
+  html += `<span class="pg-info">${currentPage} / ${totalPages}</span>`;
+  pg.innerHTML = html;
+}
+
+function goPage(p) { currentPage = p; render(); window.scrollTo(0,0); }
+function onSearch() { applyFilters(); }
+function setView(v, btn) {
+  currentView = v;
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+function cycleSort(key) {
+  if (sortKey === key) sortDir = sortDir==='asc'?'desc':'asc';
+  else { sortKey = key; sortDir = 'desc'; }
+  document.querySelectorAll('thead th').forEach(th => {
+    th.classList.remove('sorted');
+    th.querySelector('.sort-icon').textContent = '↕';
+  });
+  const th = document.getElementById('th-'+key);
+  if (th) { th.classList.add('sorted'); th.querySelector('.sort-icon').textContent = sortDir==='desc'?'↓':'↑'; }
+  sortFiltered(); render();
+}
+
+function parseDate(s) {
+  if (!s) return null;
+  // expects DD.MM.YYYY or YYYY-MM-DD
+  if (s.includes('.')) {
+    const [d,m,y] = s.split('.');
+    return new Date(+y, +m-1, +d);
+  }
+  return new Date(s);
+}
+function formatDate(s) {
+  const d = parseDate(s);
+  if (!d) return s;
+  return d.toLocaleDateString('de-DE', {day:'2-digit',month:'2-digit',year:'numeric'});
+}
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+init();
+</script>
+</body>
+</html>
